@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment</title>
+</head>
+<body style="background-color: rgb(143, 174, 188); color: black">
+<!--design course form class list-->    
+<h4>Selected Course List</h4>
+<table border="1", bordercolor="whitesmoke" >
+    <tr>
+        <th>Course ID</th>
+        <th>Course Title</th>
+        <th>Course Hrs</th>
+        <th>Course Option</th>
+        <th>Lecturer Name</th>
+    </tr>
+    <tr>
+        <td>BU-GST 126</td>
+        <td>Life and Teaching of Christ the Messiah</td>
+        <td>3.0</td>
+        <td>CS GROUP D</td>
+        <td>NWAKA Ejii Promisen</td>
+    </tr>
+    <tr>
+        <td>COS 102</td>
+        <td>Problem Solving</td>
+        <td>3.0</td>
+        <td>CS GROUP D</td>
+        <td>ADEWUYI Joseph Oluwaseyi</td>
+    </tr>
+    <tr>
+        <td>STA 112</td>
+        <td>Probability I</td>
+        <td>3.0</td>
+        <td>CS GROUP D</td>
+        <td>Ayanlowo Emmanuel Ayanlola</td>
+    </tr>
+     <tr>
+        <td>BU-SEN 102</td>
+        <td>Web Design and Development</td>
+        <td>3.0</td>
+        <td>CS GROUP D</td>
+        <td>BAMIDELE OLUWADOYINSOLA</td>
+    </tr> 
+    <tr>
+        <td>MTH 102</td>
+        <td>Elementary Mathematics II (Calculus)</td>
+        <td>2.0</td>
+        <td>CS GROUP D</td>
+        <td>Bamishile Olabode Oludare</td>
+    </tr> 
+    <tr>
+        <td>GST 112</td>
+        <td>Nigeria People and Culture</td>
+        <td>2.0</td>
+        <td>CS</td>
+        <td>Oke Olayiwola Enoch</td>
+    </tr> <tr>
+        <td>PHY 102</td>
+        <td>General Physics II</td>
+        <td>2.0</td>
+        <td>CS GROUP D</td>
+        <td>Kehinde Daniel Olusegun</td>
+    </tr> <tr>
+        <td>PHY 108</td>
+        <td>General Physics Practical II</td>
+        <td>1.0</td>
+        <td>CS GROUP D</td>
+        <td>OLATUNJI OLUWASEYI DAMILOLA</td>
+    </tr> <tr>
+        <td>BU-GST 112</td>
+        <td>Health Principles</td>
+        <td>1.0</td>
+        <td>CS GROUP D</td>
+        <td>Olanrewaju Motunrayo Florence</td>
+    </tr> <tr>
+        <td>BU-GST 012</td>
+        <td>Citizenship Orientation</td>
+        <td>0.0</td>
+        <td>CS GROUP D</td>
+        <td>ABIOYE Funke Victoria</td>
+    </tr>
+</table>
+<br><br><br>
+<!--create a simple but mature form; every single form property you can-->
+<div style="justify-content: center;">
+<h5>So you're here to sign up? 😏</h5>
+
+<form action="/submit-form" method="POST">
+    <label for="full-name">What is your full name?</label><br>
+    <input type="text" id="full-name" name="fullName" placeholder="Type your name here" required><br><br>
+
+    <label for="age">How old are you?</label><br>
+    <input type="number" id="age" name="yourAge" min="1" max="100"><br><br>
+    
+    <label for="birthday">When is your birthday?</label><br>
+    <input type="date" id="birthday" name="bday"><br><br>
+
+    <label for="favcolor">Show us your favorite color</label><br>
+    <input type="color" id="favcolor" name="favColor"><br><br>
+
+    <label for="email-address">What is your email address?</label><br>
+    <input type="email" id="email-address" name="emailAddress" placeholder="you@gmail.com" required><br><br>
+   <label for="secure-password"> Create a password</label><br>
+    <input type="password" id="secure-password" name="inputPassword" placeholder="Type your password here" required><br><br>    
+
+    <label for="about">Tell us about yourself</label><br>
+    <textarea id="about" name="aboutYou" rows="5" cols="50" placeholder="Type in here..."></textarea><br><br>
+
+    <p>What School do you belong to?</p>
+     <input type="radio" id="Computing" name="SCHOOL" value="computing" >
+    <label for="Computing">Computing and Engineering Sciences</label><br>
+   
+    <input type="radio" id="SAT" name="SCHOOL" value="sat" >
+    <label for="SAT">Science and Technology</label><br>
+    
+    <input type="radio" id="VASS" name="SCHOOL" value="vass" >
+    <label for="VASS">Veronica Adeleke School of Social Sciences</label><br>
+    
+    <input type="radio" id="EAH" name="SCHOOL" value="eah" >
+    <label for="EAH">Education and Humanities</label><br><br>
+    
+    <p>What are you most interested in?</p>
+    <input type="checkbox" id="web development" name="tracks" value="webDev">
+    <label for="web development">Web Development 💻</label><br>
+    
+    <input type="checkbox" id="design management" name="tracks" value="design">
+    <label for="design management">Design Management 🖼️</label><br>
+
+    <input type="checkbox" id="data and AI" name="tracks" value="dataAI">
+    <label for="data and AI">Data and AI 🤖</label><br>
+
+    <input type="checkbox" id="cyber security" name="tracks" value="cyberSec">
+    <label for="cyber security">Cyber Security 🔐</label><br><br>
+
+    <label for="color">Which color do you prefer?</label>
+    <select id="color" name="yourColor">
+        <option value="">Please choose a color</option>
+        <option value="blue">Blue 💙</option>
+        <option value="red">Red ❤️</option>
+        <option value="black">Black 🖤</option>
+    </select><br><br>
+
+    <button type="submit">Submit 🚀</button>
+
+</form>
+</div>
+</body>
+</html>
