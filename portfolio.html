@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="portfolio.css" type="text/css">
+    <title>Portfolio site</title>
+</head>
+<body>
+    <!--header-->
+  <header>
+     <nav aria-label="Main Navigation">
+       <ul>
+         <li><a href="#home">Home</a></li> 
+         <li><a href="#about">About</a></li>
+         <li><a href="#projects">Projects</a></li>
+         <li><a href="#contact">Contact Me</a></li>
+       </ul>
+     </nav>
+  </header>
+  
+    <!--Main Content-->
+  <main>
+    <!--Home section-->
+    <section id="home">
+        <h2>HOME</h2>
+        <p> I am a Data Innovation Engineer specializing in sports performance analytics, predictive real estate modeling, and scalable architecture. I bridge the gap between complex machine learning and tangible real-world assets.
+        </p>
+
+    </section> 
+
+    <!--About Page-->
+    <section id="about">
+        <h2>ABOUT ME</h2>
+        <p> Currently pursuing Computer Science at Babcock University, I am building an automated intersection of big data, predictive analytics, and high-yield real estate models. My work transforms unstructured data into strategic institutional assets.
+        </p>
+        <p> From developing low-level algorithmic logic to compiling comprehensive multi-lingual code repositories, I focus on building technology that optimizes human and financial performance. Walk with me as we engineer the future of global industry.
+        </p>
+
+    </section> 
+
+    <!-- Projects Page -->
+<section id="projects">
+    <h2>PROJECTS</h2>
+    <div class="projects-grid">
+        
+        <!-- PROJECT 1: REAL ESTATE ENGINE -->
+        <article class="card project-interactive">
+            <h3>Real Estate ROI Tracker</h3>
+            <p class="project-desc">Calculate custom rental yields based on asset value and target metrics.</p>
+    <div class="form-group" style="flex-direction: column; gap: 8px;">
+        <input type="number" id="propertyPrice" placeholder="Property Cost ($)" aria-label="Property Price">
+        <input type="number" id="targetROI" placeholder="Target ROI % (e.g. 8)" aria-label="Target ROI Percentage" value="10">
+        <button onclick="calculateYield()" class="btn-action" style="width: 100%;">Calculate Yield</button>
+    </div>
+    <p id="roiResult" class="result-display" aria-live="polite">Yield Income: $0</p>
+        </article>
+
+        <!-- PROJECT 2: SPORTS PERFORMANCE TRACKER -->
+        <article class="card project-interactive">
+            <h3>La Liga Performance Monitor</h3>
+            <p class="project-desc">Input live player metrics to simulate dynamic match log entries.</p>
+    <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 10px;">
+        <input type="text" id="inputFixture" placeholder="Opponent">
+        <input type="number" id="inputGoals" placeholder="Goals">
+        <input type="number" id="inputAcc" placeholder="Pass Acc %" style="grid-column: span 2;">
+    </div>
+            <div class="table-container">
+                <table id="statsTable">
+                    <thead>
+                        <tr>
+                            <th>Fixture</th>
+                            <th>Goals</th>
+                            <th>Pass Acc.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RM vs Barcelona</td>
+                            <td>1</td>
+                            <td>89%</td>
+                        </tr>
+                        <tr>
+                            <td>BVB vs Chelsea</td>
+                            <td>3</td>
+                            <td>92%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button onclick="addMatchLog()" class="btn-action">Log Bellingham Data</button>
+        </article>
+
+        <!-- PROJECT 3: LANGUAGE DEVLOG PIPELINE -->
+        <article class="card project-interactive">
+            <h3>Language Devlog Pipeline</h3>
+            <p class="project-desc">Track active programming vocabulary and syntax progress.</p>
+            <ul id="logList" class="dev-logs">
+                <li>🚀 Initialized Year 2 Roadmap</li>
+                <li>📚 Added new syntax for Python and JavaScript</li>
+            </ul>
+            <button onclick="updateLog()" class="btn-action">Simulate Commit</button>
+        </article>
+
+    </div>
+</section>
+</main>
+<footer>
+    <p>Copyright &copy; 2026 Blossom's Portfolio. All rights reserved.</p>
+    <address id="contact">
+         <a href="https://github.com/KamdyB">Github</a>
+         <a href="mailto:kamdirichukwuwosuezi@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/kamdirichukwu-wosu-ezi-850b15380">LinkedIn</a>
+    </address>
+</footer>
+<script src="portfolio.js"></script>
+</body>
+</html>

@@ -69,12 +69,18 @@ section
     border-radius: 8px;
     padding: var(--spacing);
     text-align: center;
+    align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .card:hover
 {
     transform: translateY(-5px);
     box-shadow: 0.3s ease;
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
 }
 .card h3
 {
@@ -98,12 +104,46 @@ section
     background-color: #e0e0e0;
     color: #777777;
 }
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
 address
 {
     font-style: normal;
-    background: var(--light-neutral);
-    padding: var(--spacing);
-    border-left: 4px solid var(--primary-color);
+    background: var(--dark-neutral);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: var(--spacing) 0;
+    margin-top: 15px;
+    border-radius: 4px;
+}
+address a{
+    color: var(--primary-color);
+    text-decoration: none;
+    align-items: center;
+    margin: 0px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+address a:hover {
+    color: #ffffff;
+    text-decoration: underline;
 }
 footer
 {
@@ -111,5 +151,124 @@ footer
     padding: var(--spacing);
     background-color: var(--dark-neutral);
     color: white;
-    margin-top: 40px;
+    margin: 0px;
 }
+/* Style the text inputs to look modern and sharp */
+input[type="number"] {
+    border: 2px solid var(--border-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+input[type="text"] {
+    border: 2px solid var(--border-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+/* Highlight the input field when active */
+input[type="number"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 115, 177, 0.15);
+}
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 115, 177, 0.15);
+}
+/* --- Intermediate Professional Additions --- */
+
+.project-interactive {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff; /* Clean white card core */
+}
+
+.project-desc {
+    font-size: 0.9rem;
+    color: #666666;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+input[type="number"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: inherit;
+}
+input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+
+.btn-action {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.btn-action:hover {
+    background-color: #005a8b;
+}
+
+.result-display {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #2e7d32; /* Financial Green */
+}
+
+/* Tables Gold Standard */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 15px;
+}
+
+#statsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+#statsTable th, #statsTable td {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+#statsTable th {
+    background-color: var(--light-neutral);
+}
+
+/* Dev Log Lists */
+.dev-logs {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+.dev-logs li {
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
