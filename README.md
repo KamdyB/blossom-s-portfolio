@@ -1,15 +1,31 @@
-# 🦅 Blossom | Data Innovation Engineer
+Portfolio Website
 
-Computer Science undergraduate at Babcock University on an 11-year trajectory to the intersection of elite sports performance analytics, predictive machine learning architectures, and global private equity markets.
+A personal portfolio showcasing my projects, technical skills, and journey as a Computer Science student focused on football analytics, AI, and data engineering.
 
----
+## Features
 
-### 🔬 Core Specializations & Focus Ecosystems
-*   **Sports Performance**: Engineering low-level logical processors and deep learning pipelines to mitigate injury risks and optimize athlete tracking workloads (Targeting European Sports Ecosystems / La Liga).
-*   **Alternative Asset Architecture**: Constructing predictive macroeconomic real estate valuation modeling and asset allocation engines.
-*   **Language Vault**: Systematically compiling and documenting foundational computing paradigms across low-level logic (C), object-oriented design (Java), data structures (SQL), and algorithmic analytics (Python).
+- Responsive single-page layout
+- Light and dark mode
+- Smooth scrolling navigation
+- Downloadable résumé
+- Project showcase
+- Skills section
+- Contact links
 
----
+## Built With
 
-### 💻 Current Workstation Matrix
-* You're in it!
+- HTML5
+- CSS3
+- JavaScript
+
+## Live Site
+
+https://kamdyb.github.io/blossom-s-portfolio/
+
+## Future Improvements
+
+- Project screenshots
+- Blog section
+- Better mobile navigation
+- Project filtering
+- Accessibility improvements
