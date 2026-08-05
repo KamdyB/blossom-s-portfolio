@@ -1,31 +1,37 @@
-Portfolio Website
+# Portfolio
 
-A personal portfolio showcasing my projects, technical skills, and journey as a Computer Science student focused on football analytics, AI, and data engineering.
+Personal portfolio site — a single-page site built with plain HTML, CSS,
+and vanilla JavaScript (no framework), showcasing active projects rather
+than a static resume.
+
+**Live site:** https://kamdyb.github.io/blossom-s-portfolio/
+
+## Why no framework
+
+This is intentionally built without React/Vue/a static site generator.
+The goal was a fast, dependency-free page I fully understand end to end.
+
+## Structure
+├── index.html # single page, all sections
+├── portfolio.css # theme variables, layout, card styles
+├── portfolio.js # theme toggle (persisted via localStorage) + smooth scroll
+└── assets/ # resume PDF, profile image
 
 ## Features
 
-- Responsive single-page layout
-- Light and dark mode
-- Smooth scrolling navigation
-- Downloadable résumé
-- Project showcase
-- Skills section
-- Contact links
+- **Dark/light theme toggle**, persisted across visits via `localStorage`
+- **Smooth-scroll navigation** for all in-page anchor links
+- Responsive project cards linking out to individual GitHub repos
 
-## Built With
+## Project descriptions — kept accurate on purpose
 
-- HTML5
-- CSS3
-- JavaScript
+Each project card describes what the linked repo actually contains, not
+an idealized version of it. If a description here says "in progress,"
+the repo is genuinely mid-build, so the projects are not overhyped.
 
-## Live Site
+## What's next
 
-https://kamdyb.github.io/blossom-s-portfolio/
-
-## Future Improvements
-
-- Project screenshots
-- Blog section
-- Better mobile navigation
-- Project filtering
-- Accessibility improvements
+- Add a live activity indicator or last-updated date per project
+- Expand the football analytics card as that project grows (currently
+  the most active of the three)
+- Possibly add a fourth project card once a DSA-focused project is built
