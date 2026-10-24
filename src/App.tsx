@@ -152,7 +152,7 @@ function App() {
     <div className="scroll-progress" style={{ transform: `scaleX(${scrollProgress / 100})` }} aria-hidden="true" />
     <header className="topbar">
       <a className="brand" href="#top" aria-label="Blossom home"><span className="brand-mark">b.</span><span>Blossom Wosu-Ezi</span></a>
-      <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle navigation">{menuOpen ? 'Close' : 'Menu'}<span aria-hidden="true">{menuOpen ? '−' : '+'}</span></button>
+      <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}><span className={menuOpen ? 'menu-glyph menu-glyph-open' : 'menu-glyph'} aria-hidden="true"><i /><i /></span><span>{menuOpen ? 'Close' : 'Menu'}</span></button>
       <nav className={menuOpen ? 'nav-links nav-open' : 'nav-links'} aria-label="Main navigation">
         <a href="#work" onClick={closeMenu}>Work</a><a href="#about" onClick={closeMenu}>About</a><a href="#writing" onClick={closeMenu}>Writing</a><a href="#contact" onClick={closeMenu}>Contact</a>
       </nav>
@@ -166,7 +166,7 @@ function App() {
             <LetterHeading text="I build things." className="hero-title" />
             <Reveal delay={180}><p className="hero-subtitle">Then I make the hard parts make sense.</p></Reveal>
             <Reveal delay={260}><p className="hero-description">I’m Blossom, a Computer Science undergraduate at Babcock University. I build practical software, explore data problems, and write about technology with the same goal: make useful things easier to understand.</p></Reveal>
-            <Reveal delay={340}><div className="hero-actions"><a className="button button-primary" href="#work">Explore my projects <span aria-hidden="true">↓</span></a><a className="text-link" href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub profile <span aria-hidden="true">↗</span></a></div></Reveal>
+            <Reveal delay={340}><div className="hero-actions"><a className="button button-primary" href="#work">Explore my projects <span aria-hidden="true">↓</span></a><a className="button button-secondary" href="/blossom-s-portfolio/assets/Wosu-Ezi_Kamdirichukwu_Blossom_Resume.pdf" download>Download résumé <span aria-hidden="true">↓</span></a><a className="text-link" href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub profile <span aria-hidden="true">↗</span></a></div></Reveal>
           </div>
           <Reveal className="hero-card" delay={220}>
             <div className="hero-card-top"><span>PERSONAL WORKSPACE</span><span>BW / 026</span></div>
