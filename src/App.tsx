@@ -4,54 +4,84 @@ type Project = {
   number: string
   name: string
   category: string
-  status: string
-  intro: string
-  problem: string
+  audience: string
   built: string
+  status: string
+  statusDate: string
   stack: string[]
   repo: string
   live?: string
-  visual: 'sinopia' | 'data' | 'focus'
+  imagePath?: string
+  imageAlt?: string
 }
+
+const statusDate = '26 Oct 2026'
 
 const projects: Project[] = [
   {
     number: '01',
-    name: 'Sinopia',
-    category: 'SPORTS TECH · PRODUCT',
-    status: 'Evolving MVP',
-    intro: 'A coaching platform designed to bring athlete check-ins, training context, and pain reports into one clear workflow.',
-    problem: 'Training information can end up scattered across messages, notes, and separate check-ins. Sinopia explores a more coherent place for coaches to understand what athletes report and what needs attention.',
-    built: 'I have worked across the React interface, FastAPI integration, persistence, authentication flows, and deployment. It is an evolving MVP, not a claim of established adoption or measured outcomes.',
-    stack: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL'],
-    repo: 'https://github.com/KamdyB/sinopia',
-    live: 'https://sinopia-landing.vercel.app/',
-    visual: 'sinopia',
+    name: 'Football Data Sentinel',
+    category: 'DATA · VALIDATION',
+    audience: 'For football-data workflows that need cleaner records before analysis.',
+    built: 'Analysis is only as dependable as the data behind it. I built a Python workflow that makes cleaning and validation visible instead of quietly trusting every incoming row. In one recorded run, it started with 573 raw records and retained 551 valid records; those figures describe that dataset run, not a general performance benchmark.',
+    status: 'Project repository',
+    statusDate,
+    stack: ['Python', 'Data cleaning', 'Validation'],
+    repo: 'https://github.com/KamdyB/football-data-sentinel',
   },
   {
     number: '02',
-    name: 'Football Data Sentinel',
-    category: 'DATA · VALIDATION',
-    status: 'Project repository',
-    intro: 'A Python data workflow for checking football-related records before using them for analysis.',
-    problem: 'Analysis is only as dependable as the data behind it. This project focuses on making the cleaning and validation stage visible instead of quietly trusting every incoming row.',
-    built: 'In one recorded run, the workflow started with 573 raw records and retained 551 valid records. Those numbers describe that dataset run, not a general performance benchmark.',
-    stack: ['Python', 'Data cleaning', 'Validation'],
-    repo: 'https://github.com/KamdyB/football-data-sentinel',
-    visual: 'data',
+    name: 'Sinopia',
+    category: 'SPORTS TECH · PRODUCT',
+    audience: 'For coaches and teams keeping athlete check-ins, training context, and pain reports in view.',
+    built: 'Training information can be scattered across messages, notes, and separate check-ins. I built an evolving coaching platform that brings those pieces into a more coherent workflow. My work spans the React interface, FastAPI integration, persistence, authentication flows, and deployment. This is an evolving MVP, not a claim of established adoption or measured outcomes.',
+    status: 'Evolving MVP',
+    statusDate,
+    stack: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL'],
+    repo: 'https://github.com/KamdyB/sinopia',
+    live: 'https://sinopia-landing.vercel.app/',
   },
   {
     number: '03',
-    name: 'Focus Wall',
+    name: 'FOCUS//WALL',
     category: 'PRODUCT · FOCUS',
+    audience: 'For people who want a calmer way to structure work sessions and protect attention.',
+    built: 'Productivity interfaces can add as much noise as they promise to remove. Focus Wall explores a more deliberate, low-distraction space for getting into a work session. The current frontend is being developed with React, TypeScript, and Vite; planned functionality is not presented as finished.',
     status: 'In development',
-    intro: 'A focus-oriented web app exploring a calmer way to structure work sessions and protect attention.',
-    problem: 'Productivity interfaces can add as much noise as they promise to remove. Focus Wall explores a more deliberate, low-distraction space for getting into a work session.',
-    built: 'The project is being developed with a React, TypeScript, and Vite frontend. Its status is intentionally labelled in progress so planned functionality is not presented as finished.',
+    statusDate,
     stack: ['React', 'TypeScript', 'Vite'],
     repo: 'https://github.com/KamdyB/focus-wall',
     live: 'https://focus-wall.vercel.app/',
-    visual: 'focus',
+  },
+  {
+    number: '04',
+    name: 'AFAX-P — The Show That Didn’t Happen',
+    category: 'INTERACTIVE STORY · MEDIA LITERACY',
+    audience: 'For viewers exploring how online criticism can shift into nationality-based generalisation and collective blame.',
+    built: 'I built an interactive digital story for AfAX-P 2026: Digital Storytelling for Peacebuilding. A living wall of posts, evidence, commentary, voice notes, and reconstructed online conversations lets viewers follow how a grievance changes as it moves across a border. The experience distinguishes documented context from reconstructed material and leaves room for uncertainty.',
+    status: 'Published interactive story',
+    statusDate,
+    stack: ['React', 'TypeScript', 'Vite', 'CSS'],
+    repo: 'https://github.com/KamdyB/afax-story',
+    live: 'https://kamdyb.github.io/afax-story/',
+  },
+]
+
+const moreWork = [
+  {
+    name: 'Quantitative Football Analytics Pipeline',
+    description: 'A football analytics project exploring match data.',
+    url: 'https://github.com/KamdyB/football-analytics-project',
+  },
+  {
+    name: 'Student Record Management System',
+    description: 'A student-record system built in C.',
+    url: 'https://github.com/KamdyB/student-record-management-system-c',
+  },
+  {
+    name: 'Heart Disease Analysis Dashboard',
+    description: 'A data-analysis dashboard exploring heart-disease data.',
+    url: 'https://github.com/KamdyB/heart-disease-analysis-dashboard',
   },
 ]
 
@@ -101,29 +131,31 @@ function LetterHeading({ text, className = '' }: { text: string; className?: str
   }, [])
 
   let index = 0
-  return <h2 ref={ref} className={`letter-heading ${visible ? 'is-visible' : ''} ${className}`} aria-label={text}>{text.split(' ').map((word, wordIndex) => <span className="letter-word" key={word + wordIndex} aria-hidden="true">{Array.from(word).map((letter) => {
+  const words = text.split(' ')
+  return <h2 ref={ref} className={`letter-heading ${visible ? 'is-visible' : ''} ${className}`} aria-label={text}>{words.map((word, wordIndex) => <span className="letter-word" key={word + wordIndex} aria-hidden="true">{Array.from(word).map((letter) => {
     const delay = index++ * 17
     return <span className="letter" key={delay} style={{ transitionDelay: visible ? `${delay}ms` : '0ms' }}>{letter}</span>
-  })}{wordIndex < text.split(' ').length - 1 ? <span className="letter-space"> </span> : null}</span>)}</h2>
-}
-
-function ProjectVisual({ type }: { type: Project['visual'] }) {
-  if (type === 'sinopia') return <div className="visual visual-sinopia" aria-label="Abstract blue sports product illustration"><div className="visual-grid" /><div className="visual-label">SINOPIA / COACH SPACE</div><div className="sinopia-orbit orbit-one" /><div className="sinopia-orbit orbit-two" /><div className="sinopia-letter">s<span>.</span></div><div className="visual-bottom"><span>ATHLETE CHECK-IN</span><span>01 — WORKFLOW</span></div></div>
-  if (type === 'data') return <div className="visual visual-data" aria-label="Data validation illustration showing a recorded sample"><div className="visual-label">VALIDATION RUN / SAMPLE</div><div className="data-numbers"><span>573</span><i>→</i><strong>551</strong></div><div className="data-bars">{[34, 62, 45, 83, 56, 92, 48, 71, 39, 77, 54, 88].map((height, i) => <i key={i} style={{ height: `${height}%` }} />)}</div><div className="visual-bottom"><span>RAW RECORDS</span><span>VALID RECORDS</span></div></div>
-  return <div className="visual visual-focus" aria-label="Abstract focus app illustration"><div className="visual-label">FOCUS WALL / WORK IN PROGRESS</div><div className="focus-circle"><span>focus<br /><b>wall</b></span></div><div className="focus-side-note">LESS NOISE<br />MORE INTENTION</div><div className="focus-lines"><i /><i /><i /></div><div className="visual-bottom"><span>SESSION DESIGN</span><span>03 — IN PROGRESS</span></div></div>
+  })}{wordIndex < words.length - 1 ? <span className="letter-space"> </span> : null}</span>)}</h2>
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  return <Reveal className="project-card" delay={index * 90}>
-    <ProjectVisual type={project.visual} />
+  return <Reveal className="project-card" delay={index * 65}>
+    <div className="project-media">
+      {project.imagePath
+        ? <img src={project.imagePath} alt={project.imageAlt ?? `${project.name} screenshot`} loading="lazy" />
+        : <div className="media-placeholder" aria-label={`${project.name} screenshot coming`}><span>Screenshot coming</span></div>}
+    </div>
     <div className="project-content">
-      <div className="project-meta"><span>{project.number} / {project.category}</span><span className="project-status">{project.status}</span></div>
+      <p className="project-category">{project.number} / {project.category}</p>
       <h3>{project.name}</h3>
-      <p className="project-intro">{project.intro}</p>
-      <div className="project-detail"><h4>The question</h4><p>{project.problem}</p></div>
-      <div className="project-detail"><h4>What I built</h4><p>{project.built}</p></div>
-      <div className="tech-stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
-      <div className="project-actions"><a className="button button-primary" href={project.repo} target="_blank" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>{project.live && <a className="button button-secondary" href={project.live} target="_blank" rel="noreferrer">View live site <span aria-hidden="true">↗</span></a>}</div>
+      <p className="project-audience">{project.audience}</p>
+      <div className="project-built"><h4>What I built</h4><p>{project.built}</p></div>
+      <p className="project-status"><span className="status-dot" />{project.status}<span className="status-date">As of {project.statusDate}</span></p>
+      <div className="tech-stack" aria-label="Technology stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
+      <div className="project-actions">
+        <a className="button button-primary" href={project.repo} target="_blank" rel="noreferrer">Repository <span aria-hidden="true">↗</span></a>
+        {project.live && <a className="button button-secondary" href={project.live} target="_blank" rel="noreferrer">Live project <span aria-hidden="true">↗</span></a>}
+      </div>
     </div>
   </Reveal>
 }
@@ -160,13 +192,14 @@ function App() {
 
     <main id="top">
       <section className="hero section-wrap">
-        <Reveal><p className="eyebrow"><span className="blue-dot" /> COMPUTER SCIENCE · SOFTWARE · DATA · WRITING</p></Reveal>
+        <Reveal><p className="eyebrow"><span className="status-dot" /> COMPUTER SCIENCE · SOFTWARE · DATA · WRITING</p></Reveal>
         <div className="hero-layout">
           <div className="hero-copy">
+            <Reveal><p className="forward-line">Building toward 2027: better software, clearer data workflows, and tools that respect the people using them.</p></Reveal>
             <LetterHeading text="I build things." className="hero-title" />
-            <Reveal delay={180}><p className="hero-subtitle">Then I make the hard parts make sense.</p></Reveal>
+            <Reveal delay={180}><p className="hero-subtitle">Then I make the hard parts make sense<span className="typed-cursor" aria-hidden="true">▍</span></p></Reveal>
             <Reveal delay={260}><p className="hero-description">I’m Blossom, a Computer Science undergraduate at Babcock University. I build practical software, explore data problems, and write about technology with the same goal: make useful things easier to understand.</p></Reveal>
-            <Reveal delay={340}><div className="hero-actions"><a className="button button-primary" href="#work">Explore my projects <span aria-hidden="true">↓</span></a><a className="button button-secondary" href="/blossom-s-portfolio/assets/Wosu-Ezi_Kamdirichukwu_Blossom_Resume.pdf" download>Download résumé <span aria-hidden="true">↓</span></a><a className="text-link" href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub profile <span aria-hidden="true">↗</span></a></div></Reveal>
+            <Reveal delay={340}><div className="hero-actions"><a className="button button-primary" href="#work">Explore my projects <span aria-hidden="true">↓</span></a><a className="text-link" href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub profile <span aria-hidden="true">↗</span></a></div></Reveal>
           </div>
           <Reveal className="hero-card" delay={220}>
             <div className="hero-card-top"><span>PERSONAL WORKSPACE</span><span>BW / 026</span></div>
@@ -179,8 +212,12 @@ function App() {
       </section>
 
       <section className="work section-wrap" id="work">
-        <div className="section-heading"><div><Reveal><p className="eyebrow">01 / SELECTED WORK</p></Reveal><LetterHeading text="Things I’ve been building." /></div><Reveal className="section-intro"><p>Each project starts with a question. Here’s what I was trying to solve, what I built, and where the work stands now.</p></Reveal></div>
+        <div className="section-heading"><div><Reveal><p className="eyebrow">01 / SELECTED WORK</p></Reveal><LetterHeading text="Things I’ve been building." /></div><Reveal className="section-intro"><p>Four projects, different questions. Here’s what each one is for, what I built, and where the work stands.</p></Reveal></div>
         <div className="project-grid">{projects.map((project, index) => <ProjectCard key={project.name} project={project} index={index} />)}</div>
+        <div className="more-work">
+          <div className="more-heading"><Reveal><p className="eyebrow">MORE WORK</p></Reveal><p>A few other projects from the archive.</p></div>
+          <ul className="more-list">{moreWork.map((item) => <li key={item.name}><div><h3>{item.name}</h3><p>{item.description}</p></div><a href={item.url} target="_blank" rel="noreferrer" aria-label={`View ${item.name} repository`}>Repository <span aria-hidden="true">↗</span></a></li>)}</ul>
+        </div>
       </section>
 
       <section className="about section-wrap" id="about">
