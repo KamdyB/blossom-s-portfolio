@@ -1,17 +1,106 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f3f5f8" />
-    <meta name="description" content="Blossom Wosu-Ezi — Computer Science undergraduate building practical software, exploring data, and writing about technology." />
-    <title>Blossom Wosu-Ezi — Software, Data & Writing</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111a25">
+  <meta name="description" content="Wosu-Ezi Kamdirichukwu Blossom — software, data, and writing. A portfolio of practical projects built with curiosity and care.">
+  <title>Wosu-Ezi Kamdirichukwu Blossom — Software, Data & Writing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/portfolio.css">
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Wosu-Ezi Kamdirichukwu Blossom, home">
+      <span class="brand-mark" aria-hidden="true">b.</span>
+      <span>Wosu-Ezi Kamdirichukwu Blossom</span>
+    </a>
+    <div class="header-actions">
+      <a class="header-resume" href="/blossom-s-portfolio/assets/Wosu-Ezi_Kamdirichukwu_Blossom_Resume.pdf" download>Résumé <span aria-hidden="true">↓</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-glyph" aria-hidden="true"><i></i><i></i></span>
+        <span class="menu-label">Menu</span>
+      </button>
+    </div>
+    <nav class="nav-panel" id="site-nav" aria-label="Main navigation" hidden>
+      <p class="nav-kicker">TAKE A LOOK AROUND</p>
+      <a href="#work"><span>01</span> Selected work <b aria-hidden="true">↘</b></a>
+      <a href="#about"><span>02</span> A little about me <b aria-hidden="true">↘</b></a>
+      <a href="#writing"><span>03</span> Notes & writing <b aria-hidden="true">↘</b></a>
+      <a href="#contact"><span>04</span> Get in touch <b aria-hidden="true">↘</b></a>
+      <p class="nav-note">Stay curious. Take what you need.</p>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero page-width" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="signal-dot"></span> SOFTWARE · DATA · WRITING <span class="eyebrow-divider">/</span> NIGERIA</p>
+        <p class="forward-line">Looking toward 2027: more thoughtful software, better data workflows, and clearer ways to explain the hard parts.</p>
+        <h1 id="hero-title" class="letter-heading" aria-label="Some things are worth finding."><span class="title-line">Some things are</span><span class="title-line title-accent">worth finding<span class="typed-cursor" aria-hidden="true">▍</span></span></h1>
+        <p class="hero-subtitle">I build useful things, then make the hard parts make sense.</p>
+        <p class="hero-description">I’m Wosu-Ezi Kamdirichukwu Blossom, a Computer Science undergraduate interested in software, data, and the details that make a tool genuinely useful. This is a small collection of things I’ve been building, learning, and figuring out along the way.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#work">Explore the work <span aria-hidden="true">↓</span></a>
+          <a class="button button-secondary" href="/blossom-s-portfolio/assets/Wosu-Ezi_Kamdirichukwu_Blossom_Resume.pdf" download>Download résumé <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-meta"><span><i class="meta-dot"></i> OPEN TO THOUGHTFUL COLLABORATION</span><a href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GITHUB <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="hero-art" aria-label="A quiet, abstract illustration of a small blue light in a dark forest">
+        <div class="art-coordinate">FIELD NOTE 001 <span>·</span> KEEP LOOKING</div>
+        <div class="forest-scene" aria-hidden="true">
+          <span class="tree tree-a"></span><span class="tree tree-b"></span><span class="tree tree-c"></span><span class="tree tree-d"></span><span class="tree tree-e"></span>
+          <span class="ground-line"></span><span class="diamond-halo"></span><span class="diamond"></span><span class="light-speck speck-a"></span><span class="light-speck speck-b"></span><span class="light-speck speck-c"></span>
+        </div>
+        <div class="art-caption"><span>A SMALL SIGNAL<br>IN A WIDE FOREST</span><span class="caption-mark">B / 01</span></div>
+      </div>
+      <div class="hero-bottom"><span>SELECTED WORK, NOT THE WHOLE STORY</span><a href="#work">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
+    </section>
+
+    <section class="work page-width section" id="work">
+      <div class="section-head">
+        <div><p class="eyebrow">01 / SELECTED WORK</p><h2 class="letter-heading">Things I’ve been building.</h2></div>
+        <p class="section-intro">Four projects, four different questions. A look at who each one is for, what I built, and where it stands today.</p>
+      </div>
+      <div class="project-grid" id="project-grid" aria-live="polite"></div>
+      <div class="more-work">
+        <div class="more-heading"><p class="eyebrow">MORE WORK</p><p>Other things from the trail.</p></div>
+        <ul class="more-list">
+          <li><div><h3>Quantitative Football Analytics Pipeline</h3><p>A football analytics project exploring match data.</p></div><a href="https://github.com/KamdyB/football-analytics-project" target="_blank" rel="noreferrer">Repository <span aria-hidden="true">↗</span></a></li>
+          <li><div><h3>Student Record Management System</h3><p>A student-record system built in C.</p></div><a href="https://github.com/KamdyB/student-record-management-system-c" target="_blank" rel="noreferrer">Repository <span aria-hidden="true">↗</span></a></li>
+          <li><div><h3>Heart Disease Analysis Dashboard</h3><p>A data-analysis dashboard exploring heart-disease data.</p></div><a href="https://github.com/KamdyB/heart-disease-analysis-dashboard" target="_blank" rel="noreferrer">Repository <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="about page-width section" id="about">
+      <div class="section-head"><div><p class="eyebrow">02 / A LITTLE ABOUT ME</p><h2 class="letter-heading">Curiosity, with a purpose.</h2></div><p class="section-intro">Technical thinking. Human-readable results.</p></div>
+      <div class="about-grid">
+        <div class="about-copy"><p>I study Computer Science at Babcock University. I’m interested in software engineering, data science, and the ways people actually use the systems we build.</p><p>I like the work around the code, too: asking a better question, choosing what not to build, documenting decisions, and being honest about what still needs work.</p></div>
+        <div class="about-copy"><p>Outside my own projects, I contribute to campus tech communities and technical writing. Explaining an idea clearly is one way I check whether I understand it.</p><div class="about-links"><a class="button button-secondary" href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="https://www.linkedin.com/in/kamdirichukwu-wosu-ezi-850b15380/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div></div>
+      </div>
+      <div class="principles">
+        <article><span>01 / BUILD</span><h3>Useful over ornamental.</h3><p>Start with a real task. Build something that helps.</p></article>
+        <article><span>02 / UNDERSTAND</span><h3>Know what ships.</h3><p>Move quickly without calling unfinished work finished.</p></article>
+        <article><span>03 / EXPLAIN</span><h3>Make the hard parts legible.</h3><p>Clear writing and thoughtful interfaces both matter.</p></article>
+      </div>
+    </section>
+
+    <section class="writing page-width section" id="writing">
+      <div class="section-head"><div><p class="eyebrow">03 / NOTES & WRITING</p><h2 class="letter-heading">Thinking it through.</h2></div><p class="section-intro">Writing is part of how I build: a way to test ideas, document what I learn, and explain technology without hiding behind jargon.</p></div>
+      <div class="writing-card"><span class="quote-mark" aria-hidden="true">“</span><div><p class="eyebrow">BUILD WITH BLOSSOM</p><h3>Breaking down hard things until they finally make sense.</h3><p>Notes on technology, learning, and questions worth taking time to understand.</p><a class="button button-primary" href="https://medium.com/@kamdirichukwuwosuezi" target="_blank" rel="noreferrer">Read my writing <span aria-hidden="true">↗</span></a></div></div>
+    </section>
+
+    <section class="contact page-width section" id="contact">
+      <p class="eyebrow">04 / GET IN TOUCH</p><h2 class="letter-heading contact-title">If something clicks, let’s talk.</h2>
+      <p class="contact-copy">Interested in thoughtful teams, practical software, data problems, or collaborations where clear thinking matters? I’d like to hear about it.</p>
+      <div class="contact-actions"><a class="button button-primary" href="mailto:kamdirichukwuwosuezi@gmail.com">Send an email <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="https://github.com/KamdyB" target="_blank" rel="noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a></div>
+      <footer class="site-footer"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">b.</span><span>Wosu-Ezi Kamdirichukwu Blossom</span></a><span>SOFTWARE · DATA · WRITING</span><a href="#top">Back to the beginning ↑</a></footer>
+    </section>
+  </main>
+  <script type="module" src="/portfolio.js"></script>
+</body>
 </html>
