@@ -33,6 +33,10 @@ const menuButton = document.querySelector('.menu-toggle')
 const menu = document.querySelector('#site-menu')
 const progress = document.querySelector('.reading-progress')
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+const themeToggle = document.querySelector('.theme-toggle')
+const themeToggleLabel = document.querySelector('.theme-toggle-label')
+const heading = document.querySelector('.type-heading')
+let typingTimer = null
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, character => ({
@@ -63,6 +67,16 @@ function projectCard(project) {
 }
 if (grid) grid.innerHTML = projects.map(projectCard).join('')
 
+function setReadingMode(night) {
+  document.body.dataset.readingMode = night ? 'night' : 'day'
+  themeToggle.setAttribute('aria-checked', String(night))
+  themeToggle.setAttribute('aria-label', night ? 'Switch to warm daylight mode' : 'Switch to night reading mode')
+  themeToggleLabel.textContent = night ? 'Evening' : 'Warm light'
+  document.querySelector('meta[name="theme-color"]').content = night ? '#221413' : '#5e2b20'
+}
+themeToggle.addEventListener('click', () => setReadingMode(themeToggle.getAttribute('aria-checked') !== 'true'))
+setReadingMode(false)
+
 function setMenu(open) {
   menuButton.setAttribute('aria-expanded', String(open))
   menuButton.querySelector('.menu-text').textContent = open ? 'Close' : 'Menu'
@@ -85,17 +99,61 @@ window.addEventListener('scroll', updateProgress, { passive: true })
 window.addEventListener('resize', updateProgress)
 updateProgress()
 
-const revealItems = document.querySelectorAll('.project-card, .section-heading, .more-work, .about-layout, .principle-strip, .writing-feature, .contact-copy, .contact-actions')
+function resetTyping() {
+  if (typingTimer) window.clearTimeout(typingTimer)
+  heading.classList.remove('is-typing', 'is-typed')
+  heading.querySelectorAll('.type-char').forEach(character => character.remove())
+  heading.querySelectorAll('[data-type-text]').forEach(line => { line.textContent = '' })
+}
+function playTyping() {
+  if (!heading) return
+  resetTyping()
+  const lines = [...heading.querySelectorAll('[data-type-text]')]
+  if (reducedMotion.matches) {
+    lines.forEach(line => { line.textContent = line.dataset.typeText })
+    heading.classList.add('is-typed')
+    return
+  }
+  heading.classList.add('is-typing')
+  let count = 0
+  lines.forEach(line => {
+    const text = line.dataset.typeText
+    line.textContent = ''
+    for (const character of text) {
+      const span = document.createElement('span')
+      span.className = 'type-char' + (character === ' ' ? ' is-space' : '') + (/[.,!?]/.test(character) ? ' is-punctuation' : '')
+      span.textContent = character === ' ' ? '\u00a0' : character
+      span.style.setProperty('--key-delay', (count * 39) + 'ms')
+      line.appendChild(span)
+      count += 1
+    }
+  })
+  typingTimer = window.setTimeout(() => {
+    heading.classList.remove('is-typing')
+    heading.classList.add('is-typed')
+  }, count * 39 + 520)
+}
+const revealItems = document.querySelectorAll('.project-card, .section-heading, .more-work, .about-layout, .field-note, .writing-feature, .contact-copy, .contact-actions')
 if (reducedMotion.matches || !('IntersectionObserver' in window)) {
   revealItems.forEach(item => item.classList.add('is-visible'))
+  playTyping()
 } else {
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target) }
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible')
+      } else {
+        entry.target.classList.remove('is-visible')
+        entry.target.style.transitionDelay = '0ms'
+      }
     })
-  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' })
-  revealItems.forEach((item, index) => {
-    item.style.transitionDelay = `${index % 2 ? 70 : 0}ms`
-    revealObserver.observe(item)
-  })
+  }, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' })
+  revealItems.forEach(item => revealObserver.observe(item))
+  const headingObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) playTyping()
+      else resetTyping()
+    })
+  }, { threshold: 0.35 })
+  headingObserver.observe(heading)
 }
