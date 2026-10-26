@@ -33,8 +33,6 @@ const menuButton = document.querySelector('.menu-toggle')
 const menu = document.querySelector('#site-menu')
 const progress = document.querySelector('.reading-progress')
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-const themeToggle = document.querySelector('.theme-toggle')
-const themeToggleLabel = document.querySelector('.theme-toggle-label')
 const heading = document.querySelector('.type-heading')
 let typingTimer = null
 
@@ -66,16 +64,6 @@ function projectCard(project) {
   </article>`
 }
 if (grid) grid.innerHTML = projects.map(projectCard).join('')
-
-function setReadingMode(night) {
-  document.body.dataset.readingMode = night ? 'night' : 'day'
-  themeToggle.setAttribute('aria-checked', String(night))
-  themeToggle.setAttribute('aria-label', night ? 'Switch to warm daylight mode' : 'Switch to night reading mode')
-  themeToggleLabel.textContent = night ? 'Evening' : 'Warm light'
-  document.querySelector('meta[name="theme-color"]').content = night ? '#221413' : '#5e2b20'
-}
-themeToggle.addEventListener('click', () => setReadingMode(themeToggle.getAttribute('aria-checked') !== 'true'))
-setReadingMode(false)
 
 function setMenu(open) {
   menuButton.setAttribute('aria-expanded', String(open))
