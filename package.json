@@ -3,12 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
-  },
+  "scripts": { "dev": "vite", "build": "tsc -b && vite build", "preview": "vite preview" },
   "dependencies": {
+    "@fontsource/caveat": "^5.2.6",
+    "@fontsource/figtree": "^5.2.6",
+    "@fontsource/mrs-saint-delafield": "^5.2.6",
+    "@fontsource/young-serif": "^5.2.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
