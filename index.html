@@ -30,6 +30,48 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        function showFallback(message) {
+          var root = document.getElementById('root');
+          if (!root || root.querySelector('.site-shell')) return;
+          root.innerHTML = '<main style="max-width:640px;margin:12vh auto;padding:32px 24px;font:16px/1.7 system-ui,sans-serif;color:#34332f"><p style="letter-spacing:.08em;font-size:12px">BLOSSOM · PORTFOLIO</p><h1 style="font-size:clamp(28px,5vw,42px);line-height:1.15">The page did not finish loading.</h1><p>The portfolio app did not start correctly in this browser. Try refreshing once. If the problem continues, the diagnostic message below can help identify the issue.</p><p style="padding:12px;background:#faf7f0;border:1px solid #d9d0c4;overflow-wrap:anywhere;font-size:13px">' + String(message || 'The app did not mount in time.').replace(/[&<>"]/g, function (c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]); }) + '</p><button onclick="location.reload()" style="padding:12px 18px;border:0;background:#748a8b;color:white;border-radius:4px;font:inherit">Refresh page</button></main>';
+        }
+        window.addEventListener('error', function (event) {
+          window.__blossomLastError = event.message || 'A script failed to load.';
+        });
+        window.addEventListener('unhandledrejection', function (event) {
+          window.__blossomLastError = event.reason && event.reason.message ? event.reason.message : 'An asynchronous script failed.';
+        });
+        window.setTimeout(function () {
+          var root = document.getElementById('root');
+          var shell = root && root.querySelector('.site-shell');
+          if (!shell) {
+            showFallback(window.__blossomLastError || 'The app did not mount within 8 seconds.');
+            return;
+          }
+          var main = shell.querySelector('main');
+          if (main && window.getComputedStyle(main).opacity === '0') {
+            document.documentElement.dataset.intro = 'false';
+            shell.classList.remove('is-intro');
+            var loader = shell.querySelector('.intro-loader');
+            if (loader) loader.style.display = 'none';
+            shell.style.opacity = '1';
+            shell.style.visibility = 'visible';
+            main.style.opacity = '1';
+            main.style.transform = 'none';
+            var header = shell.querySelector('header');
+            if (header) { header.style.opacity = '1'; header.style.transform = 'none'; }
+          }
+        }, 4000);
+        window.setTimeout(function () {
+          var root = document.getElementById('root');
+          if (!root || !root.querySelector('.site-shell')) {
+            showFallback(window.__blossomLastError || 'The app did not mount within 8 seconds.');
+          }
+        }, 8000);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
