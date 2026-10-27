@@ -26,9 +26,18 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           CURRENT_SHA: ${{ github.sha }}
         run: |
-          gh api "repos/${GITHUB_REPOSITORY}/actions/runs?per_page=100" --jq '.workflow_runs[] | select(.name == "pages build and deployment" and .head_sha == env.CURRENT_SHA and .status != "completed") | .id' |
-          while read -r run_id; do
-            [ -z "$run_id" ] || gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/runs/$run_id/cancel" || true
+          # The legacy Pages workflow can be registered a few seconds after this run starts.
+          for attempt in 1 2 3 4; do
+            run_ids=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs?per_page=100" --jq '.workflow_runs[] | select(.name == "pages build and deployment" and .head_sha == env.CURRENT_SHA and .status != "completed") | .id')
+            if [ -n "$run_ids" ]; then
+              while read -r run_id; do
+                [ -z "$run_id" ] || gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/runs/$run_id/cancel" || true
+              done <<EOF
+          $run_ids
+          EOF
+              break
+            fi
+            sleep 5
           done
       - name: Set up Node.js
         uses: actions/setup-node@v4
