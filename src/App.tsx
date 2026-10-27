@@ -27,6 +27,47 @@ function Signature({ className = '' }: { className?: string }) {
     <g>{signatureStrokes.map((d, index) => <path className="signature-stroke" d={d} pathLength="1" key={index} style={{ '--stroke-index': index } as CSSProperties} />)}</g>
   </svg>
 }
+function TypingHeading({ text }: { text: string }) {
+  const headingRef = useRef<HTMLHeadingElement | null>(null)
+  const [visibleText, setVisibleText] = useState('')
+  const [started, setStarted] = useState(false)
+  const [complete, setComplete] = useState(false)
+  useEffect(() => {
+    const heading = headingRef.current
+    if (!heading || started) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisibleText(text)
+      setStarted(true)
+      setComplete(true)
+      return
+    }
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setStarted(true)
+        observer.disconnect()
+      }
+    }, { threshold: 0.35, rootMargin: '0px 0px -4% 0px' })
+    observer.observe(heading)
+    return () => observer.disconnect()
+  }, [started, text])
+  useEffect(() => {
+    if (!started || complete) return
+    let index = 0
+    const timer = window.setInterval(() => {
+      index += 1
+      setVisibleText(text.slice(0, index))
+      if (index >= text.length) {
+        window.clearInterval(timer)
+        setComplete(true)
+      }
+    }, 31)
+    return () => window.clearInterval(timer)
+  }, [started, complete, text])
+  return <h2 ref={headingRef} className="typing-heading" aria-label={text}>
+    <span className="typing-reserve" aria-hidden="true">{text}</span>
+    <span className="typing-live" aria-hidden="true">{visibleText}{started && !complete && <span className="typing-caret" />}</span>
+  </h2>
+}
 function ThemeSwitch({ theme, onToggle }: { theme: 'light' | 'dark'; onToggle: () => void }) {
   const [pulling, setPulling] = useState(false)
   const timer = useRef<number | undefined>(undefined)
@@ -82,10 +123,10 @@ function App() {
         <div className="hero-intro"><h1 id="hero-title">Wosu-Ezi Kamdirichukwu Blossom</h1><p className="hero-date">October 2026</p><p className="hero-diary">I’m studying Computer Science at Babcock University. I build software, explore data, and write about the parts I’m still learning to understand.</p><a className="hero-scroll" href="#work">Come in and look around <span className="scroll-mark" aria-hidden="true">⌁</span></a></div>
       </section>
       <section className="work room-section" id="work">
-        <div className="section-heading"><div><p className="room-label">At the desk</p><h2>Things I’ve been working on.</h2></div><p className="section-note">These are works in progress at different stages. I’ve left the status of each one where it actually stands.</p></div>
+        <div className="section-heading"><div><p className="room-label">At the desk</p><TypingHeading text="Things I’ve been working on." /></div><p className="section-note">These are works in progress at different stages. I’ve left the status of each one where it actually stands.</p></div>
         <div className="project-grid">{projects.map((project) => <ProjectCard key={project.name} project={project} />)}</div>
       </section>
-      <section className="about room-section" id="about"><div className="window-scene"><div className="window-pane" aria-hidden="true"><span /><span /><span /><span /></div><div className="window-copy"><p className="room-label">By the window</p><h2>A little about me.</h2><p>I study Computer Science at Babcock University, and my interests keep crossing between software engineering, data science, AI, and sports analytics.</p><p>I like the work around the code as much as the code itself: deciding what problem is worth solving, making a workflow understandable, and being honest about what still needs work.</p><p>Outside my projects, I contribute to campus tech communities and technical writing. Explaining an idea clearly is one way I test whether I understand it.</p><div className="about-links"><a href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/kamdirichukwu-wosu-ezi-850b15380/" target="_blank" rel="noreferrer">LinkedIn</a></div><div className="window-contact" id="contact"><h3>Have something in mind?</h3><p>I’m interested in thoughtful teams, practical software, data problems, and collaborations where clear thinking matters. If you’re working on something with a real problem behind it, I’d like to hear about it.</p><a className="button button-primary" href="mailto:kamdirichukwuwosuezi@gmail.com">Email me <span aria-hidden="true">·</span></a></div></div></div></section><section className="writing room-section" id="writing"><div className="section-heading"><div><p className="room-label">On the shelf</p><h2>Notes I’ve put into words.</h2></div><p className="section-note">Writing helps me follow a question past the first easy answer and share what I learn along the way.</p></div><a className="writing-shelf" href="https://medium.com/@kamdirichukwuwosuezi" target="_blank" rel="noreferrer"><div className="book-stack" aria-hidden="true"><span /><span /><span /></div><div className="writing-copy"><p className="writing-name">Build With Blossom</p><h3>Breaking down hard things until they finally make sense.</h3><p>Notes on technology, data, and the questions that take more than a quick answer.</p><span className="writing-cta">Read my writing <span aria-hidden="true">·</span></span></div></a></section>
+      <section className="about room-section" id="about"><div className="window-scene"><div className="window-pane" aria-hidden="true"><span /><span /><span /><span /></div><div className="window-copy"><p className="room-label">By the window</p><TypingHeading text="A little about me." /><p>I study Computer Science at Babcock University, and my interests keep crossing between software engineering, data science, AI, and sports analytics.</p><p>I like the work around the code as much as the code itself: deciding what problem is worth solving, making a workflow understandable, and being honest about what still needs work.</p><p>Outside my projects, I contribute to campus tech communities and technical writing. Explaining an idea clearly is one way I test whether I understand it.</p><div className="about-links"><a href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/kamdirichukwu-wosu-ezi-850b15380/" target="_blank" rel="noreferrer">LinkedIn</a></div><div className="window-contact" id="contact"><h3>Have something in mind?</h3><p>I’m interested in thoughtful teams, practical software, data problems, and collaborations where clear thinking matters. If you’re working on something with a real problem behind it, I’d like to hear about it.</p><a className="button button-primary" href="mailto:kamdirichukwuwosuezi@gmail.com">Email me <span aria-hidden="true">·</span></a></div></div></div></section><section className="writing room-section" id="writing"><div className="section-heading"><div><p className="room-label">On the shelf</p><TypingHeading text="Notes I’ve put into words." /></div><p className="section-note">Writing helps me follow a question past the first easy answer and share what I learn along the way.</p></div><a className="writing-shelf" href="https://medium.com/@kamdirichukwuwosuezi" target="_blank" rel="noreferrer"><div className="book-stack" aria-hidden="true"><span /><span /><span /></div><div className="writing-copy"><p className="writing-name">Build With Blossom</p><h3>Breaking down hard things until they finally make sense.</h3><p>Notes on technology, data, and the questions that take more than a quick answer.</p><span className="writing-cta">Read my writing <span aria-hidden="true">·</span></span></div></a></section>
       <footer className="site-footer"><a className="brand footer-brand" href="#top"><span className="brand-mark"><BMark /></span><span className="brand-name">Blossom</span></a><span className="footer-focus">Software <i>·</i> Data <i>·</i> Writing</span><span className="footer-copyright">© Blossom 2026</span><a className="footer-top" href="#top">Back to the beginning</a></footer>
     </main>
   </div>
