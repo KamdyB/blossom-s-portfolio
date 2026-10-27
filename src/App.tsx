@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
 type Project = {
   name: string; kind: string; status: string; description: string; details: string
@@ -24,7 +24,7 @@ function BMark({ className = '' }: { className?: string }) {
 }
 function Signature({ className = '' }: { className?: string }) {
   return <svg className={'signature-drawing ' + className} viewBox="0 0 430 170" role="img" aria-label="Blossom, handwritten">
-    <g>{signatureStrokes.map((d, index) => <path className="signature-stroke" d={d} key={index} style={{ '--stroke-index': index } as React.CSSProperties} />)}</g>
+    <g>{signatureStrokes.map((d, index) => <path className="signature-stroke" d={d} key={index} style={{ '--stroke-index': index } as CSSProperties} />)}</g>
   </svg>
 }
 function ThemeSwitch({ theme, onToggle }: { theme: 'light' | 'dark'; onToggle: () => void }) {
@@ -49,8 +49,6 @@ function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light')
   const [menuOpen, setMenuOpen] = useState(false)
   const [intro, setIntro] = useState(() => document.documentElement.dataset.intro === 'true')
-  const logoRef = useRef<HTMLSpanElement>(null)
-  const loaderBRef = useRef<SVGGElement>(null)
   useEffect(() => {
     document.documentElement.dataset.theme = theme
     const themeColor = document.querySelector('meta[name="theme-color"]')
