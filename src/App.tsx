@@ -16,15 +16,15 @@ const signatureStrokes = [
   "M145 73 C145 54 169 49 180 65 C191 82 175 102 158 94 C143 87 144 73 157 64",
   "M213 62 C198 50 183 61 194 72 C205 81 221 78 219 91 C217 105 196 104 185 95",
   "M249 62 C234 50 219 61 230 72 C241 81 257 78 255 91 C253 105 232 104 221 95",
-  "M280 73 C280 54 304 49 315 65 C326 82 310 102 293 94 C278 87 279 73 292 64",
-  "M329 95 C333 81 336 66 337 59 C339 51 346 53 345 62 L339 90 C344 76 354 57 363 58 C374 59 358 86 362 92 C366 99 379 79 384 64 C389 50 394 56 391 67 L385 91 C382 104 390 105 400 93"
+  "M270 73 C270 54 294 49 305 65 C316 82 300 102 283 94 C268 87 269 73 282 64",
+  "M315 95 C319 81 322 66 323 59 C325 51 332 53 331 62 L325 90 C330 76 340 57 349 58 C360 59 344 86 348 92 C352 99 365 79 370 64 C375 50 380 56 377 67 L371 91 C368 104 376 105 386 93"
 ]
 function BMark({ className = '' }: { className?: string }) {
   return <svg className={className} viewBox="0 0 42 42" aria-hidden="true"><path d="M14 36 C14 26 16 15 18 6 C23 4 29 8 27 13 C26 17 21 19 17 20 C24 17 33 21 31 28 C29 36 19 36 13 32 C11 30 12 28 15 28" /></svg>
 }
 function Signature({ className = '' }: { className?: string }) {
   return <svg className={'signature-drawing ' + className} viewBox="0 0 430 170" role="img" aria-label="Blossom, handwritten">
-    <g>{signatureStrokes.map((d, index) => <path className="signature-stroke" d={d} key={index} style={{ '--stroke-index': index } as CSSProperties} />)}</g>
+    <g>{signatureStrokes.map((d, index) => <path className="signature-stroke" d={d} pathLength="1" key={index} style={{ '--stroke-index': index } as CSSProperties} />)}</g>
   </svg>
 }
 function ThemeSwitch({ theme, onToggle }: { theme: 'light' | 'dark'; onToggle: () => void }) {
