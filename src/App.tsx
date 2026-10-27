@@ -10,8 +10,22 @@ const projects: Project[] = [
   { name: 'Focus Wall', kind: 'Product · Focus', status: 'In development', description: 'A focus-oriented web app exploring a calmer way to structure work sessions and protect attention.', details: 'The project is being developed with a React, TypeScript, and Vite frontend. Its status is intentionally labelled in progress so planned functionality is not presented as finished.', stack: ['React', 'TypeScript', 'Vite'], repo: 'https://github.com/KamdyB/focus-wall', live: 'https://focus-wall.vercel.app/', visual: 'focus' },
   { name: 'AFAX-P — The Show That Didn’t Happen', kind: 'Interactive story · Media literacy', status: 'Published interactive story', description: 'An interactive digital story created for AfAX-P 2026: Digital Storytelling for Peacebuilding.', details: 'Posts, evidence, commentary, voice notes, and reconstructed online conversations show how a grievance changes as it moves across a border. Documented context is distinguished from reconstructed material.', stack: ['React', 'TypeScript', 'Vite', 'CSS'], repo: 'https://github.com/KamdyB/afax-story', live: 'https://kamdyb.github.io/afax-story/', visual: 'story' },
 ]
+const signatureStrokes = [
+  "M22 145 C25 115 31 70 43 24 C47 9 63 8 77 17 C94 28 77 50 45 61 C73 48 101 54 101 76 C101 104 65 111 38 91 C30 85 30 79 39 76",
+  "M106 76 C114 50 116 27 120 14 C124 4 132 10 129 25 L115 91 C112 105 119 108 128 98",
+  "M145 73 C145 54 169 49 180 65 C191 82 175 102 158 94 C143 87 144 73 157 64",
+  "M213 62 C198 50 183 61 194 72 C205 81 221 78 219 91 C217 105 196 104 185 95",
+  "M249 62 C234 50 219 61 230 72 C241 81 257 78 255 91 C253 105 232 104 221 95",
+  "M280 73 C280 54 304 49 315 65 C326 82 310 102 293 94 C278 87 279 73 292 64",
+  "M329 95 C333 81 336 66 337 59 C339 51 346 53 345 62 L339 90 C344 76 354 57 363 58 C374 59 358 86 362 92 C366 99 379 79 384 64 C389 50 394 56 391 67 L385 91 C382 104 390 105 400 93"
+]
 function BMark({ className = '' }: { className?: string }) {
   return <svg className={className} viewBox="0 0 42 42" aria-hidden="true"><path d="M14 36 C14 26 16 15 18 6 C23 4 29 8 27 13 C26 17 21 19 17 20 C24 17 33 21 31 28 C29 36 19 36 13 32 C11 30 12 28 15 28" /></svg>
+}
+function Signature({ className = '' }: { className?: string }) {
+  return <svg className={'signature-drawing ' + className} viewBox="0 0 430 170" role="img" aria-label="Blossom, handwritten">
+    <g>{signatureStrokes.map((d, index) => <path className="signature-stroke" d={d} key={index} style={{ '--stroke-index': index } as React.CSSProperties} />)}</g>
+  </svg>
 }
 function ThemeSwitch({ theme, onToggle }: { theme: 'light' | 'dark'; onToggle: () => void }) {
   const [pulling, setPulling] = useState(false)
@@ -24,12 +38,12 @@ function ThemeSwitch({ theme, onToggle }: { theme: 'light' | 'dark'; onToggle: (
 }
 function ProjectArtwork({ type }: { type: Project['visual'] }) {
   if (type === 'sinopia') return <div className="project-art art-sinopia" aria-hidden="true"><span className="art-caption">SINOPIA / COACH SPACE</span><div className="art-orbit orbit-a" /><div className="art-orbit orbit-b" /><span className="art-letter">s.</span><div className="art-foot"><span>ATHLETE CHECK-IN</span><span>WORKFLOW</span></div></div>
-  if (type === 'data') return <div className="project-art art-data" aria-hidden="true"><span className="art-caption">VALIDATION RUN / SAMPLE</span><div className="data-count"><span>573</span><i>→</i><strong>551</strong></div><div className="data-bars">{[34, 62, 45, 83, 56, 92, 48, 71, 39, 77, 54, 88].map((height, i) => <i key={i} style={{ height: height + '%' }} />)}</div><div className="art-foot"><span>RAW RECORDS</span><span>VALID RECORDS</span></div></div>
+  if (type === 'data') return <div className="project-art art-data" aria-hidden="true"><span className="art-caption">VALIDATION RUN / SAMPLE</span><div className="data-count"><span>573</span><i>·</i><strong>551</strong></div><div className="data-bars">{[34, 62, 45, 83, 56, 92, 48, 71, 39, 77, 54, 88].map((height, i) => <i key={i} style={{ height: height + '%' }} />)}</div><div className="art-foot"><span>RAW RECORDS</span><span>VALID RECORDS</span></div></div>
   if (type === 'story') return <div className="project-art art-story" aria-hidden="true"><span className="art-caption">AFAX-P / DIGITAL STORYTELLING</span><div className="story-panels"><span><i>POST</i><b>01</b><em /></span><span><i>CONTEXT</i><b>02</b><em /></span><span><i>EVIDENCE</i><b>03</b><em /></span></div><div className="art-foot"><span>CONTEXT</span><span>CONSEQUENCE</span></div></div>
   return <div className="project-art art-focus" aria-hidden="true"><span className="art-caption">FOCUS WALL / IN PROGRESS</span><div className="focus-window"><span>focus<br /><b>wall</b></span></div><div className="focus-lines"><i /><i /><i /></div><div className="art-foot"><span>SESSION DESIGN</span><span>IN DEVELOPMENT</span></div></div>
 }
 function ProjectCard({ project }: { project: Project }) {
-  return <article className="project-card"><ProjectArtwork type={project.visual} /><div className="project-copy"><div className="project-meta"><span>{project.kind}</span><span className="project-status">{project.status}</span></div><h3>{project.name}</h3><p className="project-description">{project.description}</p><p className="project-details">{project.details}</p><ul className="tech-list">{project.stack.map((item) => <li key={item}>{item}</li>)}</ul><div className="project-links"><a className="button button-primary" href={project.repo} target="_blank" rel="noreferrer">Repository <span aria-hidden="true">↗</span></a>{project.live && <a className="button button-quiet" href={project.live} target="_blank" rel="noreferrer">Live site <span aria-hidden="true">↗</span></a>}</div></div></article>
+  return <article className="project-card"><ProjectArtwork type={project.visual} /><div className="project-copy"><div className="project-meta"><span>{project.kind}</span><span className="project-status">{project.status}</span></div><h3>{project.name}</h3><p className="project-description">{project.description}</p><p className="project-details">{project.details}</p><ul className="tech-list">{project.stack.map((item) => <li key={item}>{item}</li>)}</ul><div className="project-links"><a className="button button-primary" href={project.repo} target="_blank" rel="noreferrer">Repository <span className="link-mark" aria-hidden="true">•</span></a>{project.live && <a className="button button-quiet" href={project.live} target="_blank" rel="noreferrer">Live site <span aria-hidden="true">↗</span></a>}</div></div></article>
 }
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light')
@@ -46,16 +60,8 @@ function App() {
     if (!intro) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { document.documentElement.dataset.intro = 'false'; setIntro(false); try { window.sessionStorage.setItem('blossom-intro-seen', '1') } catch { /* Storage may be unavailable. */ }; return }
     try { window.sessionStorage.setItem('blossom-intro-seen', '1') } catch { /* Storage may be unavailable. */ }
-    const moveTimer = window.setTimeout(() => {
-      const source = loaderBRef.current; const target = logoRef.current
-      if (!source || !target) return
-      source.style.transformOrigin = 'center center'
-      const from = source.getBoundingClientRect(); const to = target.getBoundingClientRect()
-      const dx = to.left + to.width / 2 - (from.left + from.width / 2); const dy = to.top + to.height / 2 - (from.top + from.height / 2)
-      try { source.animate([{ transform: 'translate(0, 0) scale(1)', opacity: 1 }, { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(.22)', opacity: .94 }], { duration: 600, easing: 'cubic-bezier(.68, 0, .25, 1)', fill: 'forwards' }) } catch { /* The page still opens if Web Animations is unavailable. */ }
-    }, 1150)
-    const finishTimer = window.setTimeout(() => { document.documentElement.dataset.intro = 'false'; setIntro(false) }, 1780)
-    return () => { window.clearTimeout(moveTimer); window.clearTimeout(finishTimer) }
+    const finishTimer = window.setTimeout(() => { document.documentElement.dataset.intro = 'false'; setIntro(false) }, 2250)
+    return () => window.clearTimeout(finishTimer)
   }, [intro])
   const closeMenu = () => setMenuOpen(false)
   const toggleTheme = () => {
@@ -64,9 +70,9 @@ function App() {
     setTheme(next)
   }
   return <div className={'site-shell' + (intro ? ' is-intro' : '')}>
-    {intro && <div className="intro-loader" role="status" aria-label="Opening Blossom's portfolio"><svg className="loader-word" viewBox="0 0 560 150" aria-hidden="true"><g ref={loaderBRef} className="loader-b"><path d="M14 36 C14 26 16 15 18 6 C23 4 29 8 27 13 C26 17 21 19 17 20 C24 17 33 21 31 28 C29 36 19 36 13 32 C11 30 12 28 15 28" transform="translate(5 5) scale(3)" /></g><text className="loader-rest" x="130" y="108">lossom</text></svg></div>}
+    {intro && <div className="intro-loader" role="status" aria-label="Opening Blossom's portfolio"><Signature className="loader-word" /></div>}
     <header className="topbar">
-      <a className="brand" href="#top" aria-label="Blossom home" onClick={closeMenu}><span className="brand-mark" ref={logoRef}><BMark /></span><span className="brand-name">Blossom</span></a>
+      <a className="brand" href="#top" aria-label="Blossom home" onClick={closeMenu}><span className="brand-mark"><BMark /></span><span className="brand-name">Blossom</span></a>
       <button className="menu-toggle" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}><span className={'menu-glyph' + (menuOpen ? ' menu-glyph-open' : '')} aria-hidden="true"><i /><i /></span></button>
       <nav className={menuOpen ? 'nav-links nav-open' : 'nav-links'} aria-label="Main navigation"><a href="#work" onClick={closeMenu}>Work</a><a href="#about" onClick={closeMenu}>About</a><a href="#writing" onClick={closeMenu}>Writing</a><a href="#contact" onClick={closeMenu}>Contact</a><a className="resume-link" href={import.meta.env.BASE_URL + 'resume.pdf'} target="_blank" rel="noreferrer" download>Resume <span aria-hidden="true">↗</span></a></nav>
       <ThemeSwitch theme={theme} onToggle={toggleTheme} />
@@ -74,15 +80,15 @@ function App() {
     <main id="top">
       <section className="hero" aria-labelledby="hero-title">
         <svg className="wall-grain" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none"><filter id="plaster-grain"><feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="3" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#plaster-grain)" opacity=".12" /></svg>
-        <div className="hero-wall"><p className="wall-sign">Blossom</p></div>
-        <div className="hero-intro"><h1 id="hero-title">Wosu-Ezi Kamdirichukwu Blossom</h1><p className="hero-date">October 2026</p><p className="hero-diary">I’m studying Computer Science at Babcock University. I build software, explore data, and write about the parts I’m still learning to understand.</p><a className="hero-scroll" href="#work">Come in and look around <span aria-hidden="true">↓</span></a></div>
+        <div className="hero-wall"><Signature className="wall-sign" /></div>
+        <div className="hero-intro"><h1 id="hero-title">Wosu-Ezi Kamdirichukwu Blossom</h1><p className="hero-date">October 2026</p><p className="hero-diary">I’m studying Computer Science at Babcock University. I build software, explore data, and write about the parts I’m still learning to understand.</p><a className="hero-scroll" href="#work">Come in and look around <span className="scroll-mark" aria-hidden="true">⌁</span></a></div>
       </section>
       <section className="work room-section" id="work">
         <div className="section-heading"><div><p className="room-label">At the desk</p><h2>Things I’ve been working on.</h2></div><p className="section-note">These are works in progress at different stages. I’ve left the status of each one where it actually stands.</p></div>
         <div className="project-grid">{projects.map((project) => <ProjectCard key={project.name} project={project} />)}</div>
       </section>
-      <section className="about room-section" id="about"><div className="window-scene"><div className="window-pane" aria-hidden="true"><span /><span /><span /><span /></div><div className="window-copy"><p className="room-label">By the window</p><h2>A little about me.</h2><p>I study Computer Science at Babcock University, and my interests keep crossing between software engineering, data science, AI, and sports analytics.</p><p>I like the work around the code as much as the code itself: deciding what problem is worth solving, making a workflow understandable, and being honest about what still needs work.</p><p>Outside my projects, I contribute to campus tech communities and technical writing. Explaining an idea clearly is one way I test whether I understand it.</p><div className="about-links"><a href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/kamdirichukwu-wosu-ezi-850b15380/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div><div className="window-contact" id="contact"><h3>Have something in mind?</h3><p>I’m interested in thoughtful teams, practical software, data problems, and collaborations where clear thinking matters. If you’re working on something with a real problem behind it, I’d like to hear about it.</p><a className="button button-primary" href="mailto:kamdirichukwuwosuezi@gmail.com">Email me <span aria-hidden="true">↗</span></a></div></div></div></section><section className="writing room-section" id="writing"><div className="section-heading"><div><p className="room-label">On the shelf</p><h2>Notes I’ve put into words.</h2></div><p className="section-note">Writing helps me follow a question past the first easy answer and share what I learn along the way.</p></div><a className="writing-shelf" href="https://medium.com/@kamdirichukwuwosuezi" target="_blank" rel="noreferrer"><div className="book-stack" aria-hidden="true"><span /><span /><span /></div><div className="writing-copy"><p className="writing-name">Build With Blossom</p><h3>Breaking down hard things until they finally make sense.</h3><p>Notes on technology, data, and the questions that take more than a quick answer.</p><span className="writing-cta">Read my writing <span aria-hidden="true">↗</span></span></div></a></section>
-      <footer className="site-footer"><a className="brand" href="#top"><span className="brand-mark"><BMark /></span><span className="brand-name">Blossom</span></a><span>Software · Data · Writing</span><a href="#top">Back to the top ↑</a></footer>
+      <section className="about room-section" id="about"><div className="window-scene"><div className="window-pane" aria-hidden="true"><span /><span /><span /><span /></div><div className="window-copy"><p className="room-label">By the window</p><h2>A little about me.</h2><p>I study Computer Science at Babcock University, and my interests keep crossing between software engineering, data science, AI, and sports analytics.</p><p>I like the work around the code as much as the code itself: deciding what problem is worth solving, making a workflow understandable, and being honest about what still needs work.</p><p>Outside my projects, I contribute to campus tech communities and technical writing. Explaining an idea clearly is one way I test whether I understand it.</p><div className="about-links"><a href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/kamdirichukwu-wosu-ezi-850b15380/" target="_blank" rel="noreferrer">LinkedIn</a></div><div className="window-contact" id="contact"><h3>Have something in mind?</h3><p>I’m interested in thoughtful teams, practical software, data problems, and collaborations where clear thinking matters. If you’re working on something with a real problem behind it, I’d like to hear about it.</p><a className="button button-primary" href="mailto:kamdirichukwuwosuezi@gmail.com">Email me <span aria-hidden="true">↗</span></a></div></div></div></section><section className="writing room-section" id="writing"><div className="section-heading"><div><p className="room-label">On the shelf</p><h2>Notes I’ve put into words.</h2></div><p className="section-note">Writing helps me follow a question past the first easy answer and share what I learn along the way.</p></div><a className="writing-shelf" href="https://medium.com/@kamdirichukwuwosuezi" target="_blank" rel="noreferrer"><div className="book-stack" aria-hidden="true"><span /><span /><span /></div><div className="writing-copy"><p className="writing-name">Build With Blossom</p><h3>Breaking down hard things until they finally make sense.</h3><p>Notes on technology, data, and the questions that take more than a quick answer.</p><span className="writing-cta">Read my writing <span aria-hidden="true">↗</span></span></div></a></section>
+      <footer className="site-footer"><a className="brand footer-brand" href="#top"><span className="brand-mark"><BMark /></span><span className="brand-name">Blossom</span></a><span className="footer-focus">Software <i>·</i> Data <i>·</i> Writing</span><span className="footer-copyright">© Blossom 2026</span><a className="footer-top" href="#top">Back to the beginning</a></footer>
     </main>
   </div>
 }
