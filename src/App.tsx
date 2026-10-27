@@ -2,17 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 
 type Project = {
   name: string; kind: string; status: string; description: string; details: string
-  stack: string[]; repo: string; live?: string; visual: 'sinopia' | 'data' | 'focus'
+  stack: string[]; repo: string; live?: string; visual: 'sinopia' | 'data' | 'focus' | 'story'
 }
 const projects: Project[] = [
   { name: 'Sinopia', kind: 'Sports tech · Product', status: 'Evolving MVP', description: 'A coaching platform designed to bring athlete check-ins, training context, and pain reports into one clear workflow.', details: 'I have worked across the React interface, FastAPI integration, persistence, authentication flows, and deployment. It is an evolving MVP, not a claim of established adoption or measured outcomes.', stack: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL'], repo: 'https://github.com/KamdyB/sinopia', live: 'https://sinopia-landing.vercel.app/', visual: 'sinopia' },
   { name: 'Football Data Sentinel', kind: 'Data · Validation', status: 'Project repository', description: 'A Python data workflow for checking football-related records before using them for analysis.', details: 'In one recorded run, the workflow started with 573 raw records and retained 551 valid records. Those numbers describe that dataset run, not a general performance benchmark.', stack: ['Python', 'Data cleaning', 'Validation'], repo: 'https://github.com/KamdyB/football-data-sentinel', visual: 'data' },
   { name: 'Focus Wall', kind: 'Product · Focus', status: 'In development', description: 'A focus-oriented web app exploring a calmer way to structure work sessions and protect attention.', details: 'The project is being developed with a React, TypeScript, and Vite frontend. Its status is intentionally labelled in progress so planned functionality is not presented as finished.', stack: ['React', 'TypeScript', 'Vite'], repo: 'https://github.com/KamdyB/focus-wall', live: 'https://focus-wall.vercel.app/', visual: 'focus' },
-]
-const moreProjects = [
-  { name: 'Quantitative Football Analytics Pipeline', description: 'Exploring match data through a football analytics project.', url: 'https://github.com/KamdyB/football-analytics-project' },
-  { name: 'Student Record Management System', description: 'A student-record system written in C.', url: 'https://github.com/KamdyB/student-record-management-system-c' },
-  { name: 'Heart Disease Analysis Dashboard', description: 'A dashboard exploring heart-disease data.', url: 'https://github.com/KamdyB/heart-disease-analysis-dashboard' },
+  { name: 'AFAX-P — The Show That Didn’t Happen', kind: 'Interactive story · Media literacy', status: 'Published interactive story', description: 'An interactive digital story created for AfAX-P 2026: Digital Storytelling for Peacebuilding.', details: 'Posts, evidence, commentary, voice notes, and reconstructed online conversations show how a grievance changes as it moves across a border. Documented context is distinguished from reconstructed material.', stack: ['React', 'TypeScript', 'Vite', 'CSS'], repo: 'https://github.com/KamdyB/afax-story', live: 'https://kamdyb.github.io/afax-story/', visual: 'story' },
 ]
 function BMark({ className = '' }: { className?: string }) {
   return <svg className={className} viewBox="0 0 42 42" aria-hidden="true"><path d="M11 34 C10 27 12 16 13 7 C17 5 25 6 28 10 C31 14 27 19 20 20 C29 18 34 22 32 28 C30 35 19 36 11 34 Z" /></svg>
@@ -29,6 +25,7 @@ function ThemeSwitch({ theme, onToggle }: { theme: 'light' | 'dark'; onToggle: (
 function ProjectArtwork({ type }: { type: Project['visual'] }) {
   if (type === 'sinopia') return <div className="project-art art-sinopia" aria-hidden="true"><span className="art-caption">SINOPIA / COACH SPACE</span><div className="art-orbit orbit-a" /><div className="art-orbit orbit-b" /><span className="art-letter">s.</span><div className="art-foot"><span>ATHLETE CHECK-IN</span><span>WORKFLOW</span></div></div>
   if (type === 'data') return <div className="project-art art-data" aria-hidden="true"><span className="art-caption">VALIDATION RUN / SAMPLE</span><div className="data-count"><span>573</span><i>→</i><strong>551</strong></div><div className="data-bars">{[34, 62, 45, 83, 56, 92, 48, 71, 39, 77, 54, 88].map((height, i) => <i key={i} style={{ height: height + '%' }} />)}</div><div className="art-foot"><span>RAW RECORDS</span><span>VALID RECORDS</span></div></div>
+  if (type === 'story') return <div className="project-art art-story" aria-hidden="true"><span className="art-caption">AFAX-P / DIGITAL STORYTELLING</span><div className="story-panels"><span><i>POST</i><b>01</b><em /></span><span><i>CONTEXT</i><b>02</b><em /></span><span><i>EVIDENCE</i><b>03</b><em /></span></div><div className="art-foot"><span>CONTEXT</span><span>CONSEQUENCE</span></div></div>
   return <div className="project-art art-focus" aria-hidden="true"><span className="art-caption">FOCUS WALL / IN PROGRESS</span><div className="focus-window"><span>focus<br /><b>wall</b></span></div><div className="focus-lines"><i /><i /><i /></div><div className="art-foot"><span>SESSION DESIGN</span><span>IN DEVELOPMENT</span></div></div>
 }
 function ProjectCard({ project }: { project: Project }) {
@@ -40,7 +37,11 @@ function App() {
   const [intro, setIntro] = useState(() => document.documentElement.dataset.intro === 'true')
   const logoRef = useRef<HTMLSpanElement>(null)
   const loaderBRef = useRef<SVGGElement>(null)
-  useEffect(() => { document.documentElement.dataset.theme = theme; try { window.localStorage.setItem('blossom-theme', theme) } catch { /* Storage may be unavailable. */ } }, [theme])
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    const themeColor = document.querySelector('meta[name="theme-color"]')
+    if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#e8eaed' : '#1d2126')
+  }, [theme])
   useEffect(() => {
     if (!intro) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { document.documentElement.dataset.intro = 'false'; setIntro(false); try { window.sessionStorage.setItem('blossom-intro-seen', '1') } catch { /* Storage may be unavailable. */ }; return }
@@ -48,21 +49,26 @@ function App() {
     const moveTimer = window.setTimeout(() => {
       const source = loaderBRef.current; const target = logoRef.current
       if (!source || !target) return
+      source.style.transformOrigin = 'center center'
       const from = source.getBoundingClientRect(); const to = target.getBoundingClientRect()
       const dx = to.left + to.width / 2 - (from.left + from.width / 2); const dy = to.top + to.height / 2 - (from.top + from.height / 2)
       try { source.animate([{ transform: 'translate(0, 0) scale(1)', opacity: 1 }, { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(.22)', opacity: .94 }], { duration: 780, easing: 'cubic-bezier(.68, 0, .25, 1)', fill: 'forwards' }) } catch { /* The page still opens if Web Animations is unavailable. */ }
-    }, 440)
-    const finishTimer = window.setTimeout(() => { document.documentElement.dataset.intro = 'false'; setIntro(false) }, 1580)
+    }, 1080)
+    const finishTimer = window.setTimeout(() => { document.documentElement.dataset.intro = 'false'; setIntro(false) }, 1880)
     return () => { window.clearTimeout(moveTimer); window.clearTimeout(finishTimer) }
   }, [intro])
   const closeMenu = () => setMenuOpen(false)
-  const toggleTheme = () => setTheme((current) => current === 'light' ? 'dark' : 'light')
+  const toggleTheme = () => {
+    const next = theme === 'light' ? 'dark' : 'light'
+    try { window.localStorage.setItem('blossom-theme', next) } catch { /* Storage may be unavailable. */ }
+    setTheme(next)
+  }
   return <div className={'site-shell' + (intro ? ' is-intro' : '')}>
     {intro && <div className="intro-loader" role="status" aria-label="Opening Blossom's portfolio"><svg className="loader-word" viewBox="0 0 560 150" aria-hidden="true"><g ref={loaderBRef} className="loader-b"><path d="M11 34 C10 27 12 16 13 7 C17 5 25 6 28 10 C31 14 27 19 20 20 C29 18 34 22 32 28 C30 35 19 36 11 34 Z" transform="translate(5 5) scale(3)" /></g><text className="loader-rest" x="130" y="108">lossom</text></svg></div>}
     <header className="topbar">
       <a className="brand" href="#top" aria-label="Blossom home" onClick={closeMenu}><span className="brand-mark" ref={logoRef}><BMark /></span><span className="brand-name">Blossom</span></a>
       <button className="menu-toggle" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}><span className={'menu-glyph' + (menuOpen ? ' menu-glyph-open' : '')} aria-hidden="true"><i /><i /></span></button>
-      <nav className={menuOpen ? 'nav-links nav-open' : 'nav-links'} aria-label="Main navigation"><a href="#work" onClick={closeMenu}>Work</a><a href="#about" onClick={closeMenu}>About</a><a href="#writing" onClick={closeMenu}>Writing</a><a href="#contact" onClick={closeMenu}>Contact</a><a className="resume-link" href={import.meta.env.BASE_URL + 'resume.pdf'} target="_blank" rel="noreferrer" download>Résumé <span aria-hidden="true">↗</span></a></nav>
+      <nav className={menuOpen ? 'nav-links nav-open' : 'nav-links'} aria-label="Main navigation"><a href="#work" onClick={closeMenu}>Work</a><a href="#about" onClick={closeMenu}>About</a><a href="#writing" onClick={closeMenu}>Writing</a><a href="#contact" onClick={closeMenu}>Contact</a><a className="resume-link" href={import.meta.env.BASE_URL + 'resume.pdf'} target="_blank" rel="noreferrer" download>Resume <span aria-hidden="true">↗</span></a></nav>
       <ThemeSwitch theme={theme} onToggle={toggleTheme} />
     </header>
     <main id="top">
@@ -74,7 +80,6 @@ function App() {
       <section className="work room-section" id="work">
         <div className="section-heading"><div><p className="room-label">At the desk</p><h2>Things I’ve been working on.</h2></div><p className="section-note">These are works in progress at different stages. I’ve left the status of each one where it actually stands.</p></div>
         <div className="project-grid">{projects.map((project) => <ProjectCard key={project.name} project={project} />)}</div>
-        <div className="more-work"><p className="room-label">On the side of the desk</p><ul className="more-list">{moreProjects.map((project) => <li key={project.name}><div><h3>{project.name}</h3><p>{project.description}</p></div><a href={project.url} target="_blank" rel="noreferrer">Open repository <span aria-hidden="true">↗</span></a></li>)}</ul></div>
       </section>
       <section className="about room-section" id="about"><div className="window-scene"><div className="window-pane" aria-hidden="true"><span /><span /><span /><span /></div><div className="window-copy"><p className="room-label">By the window</p><h2>A little about me.</h2><p>I study Computer Science at Babcock University, and my interests keep crossing between software engineering, data science, AI, and sports analytics.</p><p>I like the work around the code as much as the code itself: deciding what problem is worth solving, making a workflow understandable, and being honest about what still needs work.</p><p>Outside my projects, I contribute to campus tech communities and technical writing. Explaining an idea clearly is one way I test whether I understand it.</p><div className="about-links"><a href="https://github.com/KamdyB" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/kamdirichukwu-wosu-ezi-850b15380/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div></div></div></section>
       <section className="writing room-section" id="writing"><div className="section-heading"><div><p className="room-label">On the shelf</p><h2>Notes I’ve put into words.</h2></div><p className="section-note">Writing helps me follow a question past the first easy answer and share what I learn along the way.</p></div><a className="writing-shelf" href="https://medium.com/@kamdirichukwuwosuezi" target="_blank" rel="noreferrer"><div className="book-stack" aria-hidden="true"><span /><span /><span /></div><div className="writing-copy"><p className="writing-name">Build With Blossom</p><h3>Breaking down hard things until they finally make sense.</h3><p>Notes on technology, data, and the questions that take more than a quick answer.</p><span className="writing-cta">Read my writing <span aria-hidden="true">↗</span></span></div></a></section>
