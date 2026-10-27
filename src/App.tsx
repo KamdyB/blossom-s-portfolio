@@ -60,7 +60,7 @@ function TypingHeading({ text }: { text: string }) {
         window.clearInterval(timer)
         setComplete(true)
       }
-    }, 31)
+    }, 62)
     return () => window.clearInterval(timer)
   }, [started, complete, text])
   return <h2 ref={headingRef} className="typing-heading" aria-label={text}>
