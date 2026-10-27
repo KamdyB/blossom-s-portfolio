@@ -35,14 +35,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
-
-  deploy:
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
       - name: Prevent branch-based Pages output from overwriting the Vite build
         env:
           GH_TOKEN: ${{ github.token }}
@@ -75,6 +67,14 @@ jobs:
           done
           echo "Timed out waiting for the branch-based Pages build." >&2
           exit 1
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
