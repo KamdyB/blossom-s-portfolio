@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -42,6 +43,31 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for the branch-based Pages build to finish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CURRENT_SHA: ${{ github.sha }}
+        run: |
+          missing_count=0
+          for attempt in $(seq 1 60); do
+            state=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs?per_page=100" --jq '[.workflow_runs[] | select(.name == "pages build and deployment" and .head_sha == env.CURRENT_SHA)] | sort_by(.created_at) | last | .status // "missing"')
+            if [ "$state" = "completed" ]; then
+              echo "The competing Pages build has finished; publishing the Vite artifact last."
+              exit 0
+            fi
+            if [ "$state" = "missing" ]; then
+              missing_count=$((missing_count + 1))
+              if [ "$missing_count" -ge 3 ]; then
+                echo "No branch-based Pages build found for this commit; continuing."
+                exit 0
+              fi
+            else
+              missing_count=0
+            fi
+            sleep 5
+          done
+          echo "Timed out waiting for the branch-based Pages build." >&2
+          exit 1
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
