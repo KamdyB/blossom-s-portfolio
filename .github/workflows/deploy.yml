@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: portfolio-deploy
   cancel-in-progress: true
 
 jobs:
@@ -21,6 +21,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cancel stale portfolio deploy runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CURRENT_SHA: ${{ github.sha }}
+        run: |
+          stale_ids=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs?per_page=100" --jq '[.workflow_runs[] | select(.name == "Build and deploy portfolio" and .head_sha != env.CURRENT_SHA and .status != "completed") | .id] | .[]')
+          if [ -n "$stale_ids" ]; then
+            while read -r run_id; do
+              [ -z "$run_id" ] || gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/runs/$run_id/cancel" || true
+            done <<EOF
+          $stale_ids
+          EOF
+          fi
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
