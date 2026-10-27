@@ -56,8 +56,8 @@ jobs:
             while read -r run_id; do
               [ -z "$run_id" ] && continue
               build_status=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/$run_id/jobs?per_page=100" --jq '[.jobs[] | select(.name == "build") | .status] | first // "missing"')
-              if [ "$build_status" = "completed" ]; then
-                echo "Cancelling branch-based Pages run $run_id before publishing Vite output."
+              if [ "$build_status" != "in_progress" ]; then
+                echo "Cancelling queued or completed branch-based Pages run $run_id before publishing Vite output."
                 gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/runs/$run_id/cancel" || true
               else
                 pending_build=1
