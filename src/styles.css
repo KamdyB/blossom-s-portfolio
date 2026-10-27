@@ -78,3 +78,25 @@
 @media(prefers-reduced-motion:reduce){.signature-stroke{stroke-dashoffset:0!important;animation:none!important}}
 
 @media(prefers-reduced-motion:reduce){.typing-caret{display:none}.typing-reserve{visibility:visible}.typing-live{position:static}.typing-live::after{content:none}}
+
+/* Fine-tuning: slower, quieter writing and tighter desktop hero rhythm */
+@media(min-width:681px){
+  .hero{min-height:0;grid-template-rows:minmax(250px,.72fr) auto}
+  .hero-wall{min-height:300px;padding:30px 24px 0}
+  .wall-sign{width:min(610px,70vw)}
+  .hero-intro{padding:8px 0 38px}
+  .hero-intro h1{font-size:clamp(31px,4.4vw,54px)}
+  .hero-scroll{margin-top:18px}
+}
+@media(min-width:1440px){
+  .hero{min-height:0}
+  .hero-wall{min-height:330px;padding-top:36px}
+  .wall-sign{width:min(680px,64vw)}
+  .hero-intro{padding-bottom:42px}
+}
+.signature-stroke{animation-duration:1.05s;animation-delay:calc(var(--stroke-index, 0) * .07s)}
+.wall-sign .signature-stroke{animation-duration:1.15s;animation-delay:calc(var(--stroke-index, 0) * .08s)}
+.loader-word .signature-stroke{animation-duration:.72s;animation-delay:calc(var(--stroke-index, 0) * .09s)}
+@media(prefers-reduced-motion:reduce){
+  .signature-stroke{stroke-dashoffset:0!important;animation:none!important}
+}
