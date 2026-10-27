@@ -52,9 +52,9 @@ function App() {
       source.style.transformOrigin = 'center center'
       const from = source.getBoundingClientRect(); const to = target.getBoundingClientRect()
       const dx = to.left + to.width / 2 - (from.left + from.width / 2); const dy = to.top + to.height / 2 - (from.top + from.height / 2)
-      try { source.animate([{ transform: 'translate(0, 0) scale(1)', opacity: 1 }, { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(.22)', opacity: .94 }], { duration: 780, easing: 'cubic-bezier(.68, 0, .25, 1)', fill: 'forwards' }) } catch { /* The page still opens if Web Animations is unavailable. */ }
-    }, 1080)
-    const finishTimer = window.setTimeout(() => { document.documentElement.dataset.intro = 'false'; setIntro(false) }, 1880)
+      try { source.animate([{ transform: 'translate(0, 0) scale(1)', opacity: 1 }, { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(.22)', opacity: .94 }], { duration: 600, easing: 'cubic-bezier(.68, 0, .25, 1)', fill: 'forwards' }) } catch { /* The page still opens if Web Animations is unavailable. */ }
+    }, 1150)
+    const finishTimer = window.setTimeout(() => { document.documentElement.dataset.intro = 'false'; setIntro(false) }, 1780)
     return () => { window.clearTimeout(moveTimer); window.clearTimeout(finishTimer) }
   }, [intro])
   const closeMenu = () => setMenuOpen(false)
